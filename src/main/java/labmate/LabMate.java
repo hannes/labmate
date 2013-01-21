@@ -1,12 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package labmate;
 
+import javax.swing.SwingUtilities;
+
+import labmate.model.LabNotesModel;
+import labmate.view.LabNotesView;
+
 /**
- *
- * @author hannes
+ * This is the entry point for the mvc architecture
+ * 
+ * @author julian
  */
 public class LabMate {
 
@@ -14,6 +16,15 @@ public class LabMate {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+    	
+		final LabNotesModel model = new LabNotesModel();
+		final LabNotesView view = new LabNotesView(model);
+		
+		SwingUtilities.invokeLater(new Runnable() {
+		    public void run() {
+		    	LabNotesController controller = new LabNotesController(model, view);
+		    	controller.main();
+		    }
+		});
     }
 }

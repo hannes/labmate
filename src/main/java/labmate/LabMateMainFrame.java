@@ -64,7 +64,7 @@ public class LabMateMainFrame extends JFrame {
 		topPanel.add(Box.createHorizontalGlue());
 		topPanel.add(projectSelector);
 		topPanel.add(projectAddButton);
-		topPanel.add(datePicker);
+		topPanel.add(datePicker);	
 
 		mainPanel.add(topPanel, BorderLayout.PAGE_START);
 		JScrollPane scroller = new JScrollPane(editor);
@@ -213,7 +213,8 @@ public class LabMateMainFrame extends JFrame {
 
 			if (lastProject != null) {
 				changeProject(lastProject);
-			}
+
+				}
 
 		} catch (Exception e) {
 			e.printStackTrace();

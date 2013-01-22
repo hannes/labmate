@@ -19,6 +19,9 @@ public class LabMate {
     	
 		final LabNotesModel model = new LabNotesModel();
 		final LabNotesView view = new LabNotesView(model);
+
+		// TODO: implement export dump 
+		// example: ./prog --dump --project="abc" 
 		
 		SwingUtilities.invokeLater(new Runnable() {
 		    public void run() {

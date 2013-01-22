@@ -7,7 +7,6 @@ import java.awt.event.KeyListener;
 import java.util.Date;
 
 import labmate.model.LabNotesModel;
-import labmate.model.LabNotesModel.Entry;
 import labmate.view.LabNotesView;
 
 /*
@@ -46,7 +45,13 @@ public class LabNotesController {
 	 *-------------------------------------------------------------------------*/
 	public class ProjectPickerListener implements ActionListener {
 		@Override
-		public void actionPerformed(ActionEvent e) { 	}
+		public void actionPerformed(ActionEvent e) {
+			
+			// Populate calendar with entries
+			
+			// show todays entry
+			
+		}
 	}
 	
 	/**
@@ -62,7 +67,7 @@ public class LabNotesController {
 			
 			// don't override existing projects (name is unique)
 			if (model.addProject(newProject)) {
-				view.setItemsOfProjectPicker(model.getProjectNames());
+				view.setAvailableProjects(model.getProjectNames());
 				view.setSelectedProject(newProject);
 			}
 		}
@@ -82,35 +87,42 @@ public class LabNotesController {
 			
 			// don't override existing projects (name is unique)
 			if (model.renameProject(view.getSelectedProject(), newName)) {
-				view.setItemsOfProjectPicker(model.getProjectNames());
+				view.setAvailableProjects(model.getProjectNames());
 				view.setSelectedProject(newName);
 			}
 		}
 	}
 	
+	
 	public class DateBackButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			
+			// go back one day in the calendar, will be handled by DatePickerListener
 		}
 	}
 	
 	public class DatePickerListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			
+			// show entry in editor of the selected date
+			
 		}
 	}
 	
 	public class DateForwardButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			
+			// go back one day in the calendar, will be handled by DatePickerListener 
 		}
 	}
 	
 	public class EditorListener implements KeyListener {
-
+		
+		// if user entered changed text in editor save current entry
+		
 		@Override
 		public void keyPressed(KeyEvent arg0) { }
 		@Override

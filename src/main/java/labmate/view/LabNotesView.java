@@ -139,7 +139,7 @@ public class LabNotesView extends JFrame {
 	// provide setter for controller
 	//--------------------------------------------------------------------------
 	
-	public void setItemsOfProjectPicker(ArrayList<String> projectList) {
+	public void setAvailableProjects(ArrayList<String> projectList) {
 		projectPicker.removeAllItems();
 		for (String name : projectList) {
 			projectPicker.addItem(name);

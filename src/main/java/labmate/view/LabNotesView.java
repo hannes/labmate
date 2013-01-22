@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.Box;
@@ -57,13 +58,13 @@ public class LabNotesView extends JFrame {
 		toolbar = new JToolBar();
 		projectPicker = new JComboBox();
 		addProjectButton = new JButton("add"); 
-		JButton renameProjectButton = new JButton("rename");
+		renameProjectButton = new JButton("rename");
 		
-		JButton dateBackButton = new JButton("<");
-		JXDatePicker datePicker = new JXDatePicker();
-		JButton dateForwardButton = new JButton(">");
+		dateBackButton = new JButton("<");
+		datePicker = new JXDatePicker();
+		dateForwardButton = new JButton(">");
 
-		JXEditorPane editor = new JXEditorPane();
+		editor = new JXEditorPane();
 		
 		// assemble gui
 		Container container = getContentPane();
@@ -99,82 +100,101 @@ public class LabNotesView extends JFrame {
 	
 	
 	//--------------------------------------------------------------------------
-	// Dialogs
+	// dialogs called by controller 
 	//--------------------------------------------------------------------------
 	
-	void showErrorDialog(String message) {
+	public void showErrorDialog(String message) {
 		JOptionPane.showMessageDialog(this, message);
 	}
 	
-	String showRenameProjectDialog() {
+	public String showRenameProjectDialog() {
 		return JOptionPane.showInputDialog("Rename current project");
 		
 	}
 	
-	String showNewProjectDialog(String message) {
+	public String showNewProjectDialog() {
 		return JOptionPane.showInputDialog("New project title");
 	}
 	
 	
 	
 	//--------------------------------------------------------------------------
-	// getter data from view
+	// provide getter for controller 
 	//--------------------------------------------------------------------------
 	
-	String getSelectedProject() {
+	public String getSelectedProject() {
 		return (String)projectPicker.getSelectedItem();
 	}
 	
-	Date getSelectedDate() {
+	public Date getSelectedDate() {
 		return datePicker.getDate();
 	}
 	
-	String getEditorText() {
+	public String getEditorText() {
 		return editor.getText();
 	}
 	
 	
 	//--------------------------------------------------------------------------
-	// setter view elements used by controller
+	// provide setter for controller
 	//--------------------------------------------------------------------------
 	
-	void setSelectedProject(String project) {
+	public void setItemsOfProjectPicker(ArrayList<String> projectList) {
+		projectPicker.removeAllItems();
+		for (String name : projectList) {
+			projectPicker.addItem(name);
+		}
+	}
+	
+	public void setSelectedProject(String project) {
 		projectPicker.setSelectedItem(project);
 	}
 	
-	void setSelectedDate(Date date) {
+	public void setSelectedDate(Date date) {
 		datePicker.setDate(date);
 	}
 	
-	void setEditorText(String text) {
+	public void setDatesInDatePicker(ArrayList<Date> dates) {
+		datePicker.getMonthView().setFlaggedDates(dates.toArray(new Date[0]));
+	}
+	
+	public void setEditorText(String text) {
 		editor.setText(text);
 	}
 	
 	
 	//--------------------------------------------------------------------------
-	// set listeners
+	// listeners will be set by controller
 	//--------------------------------------------------------------------------
-	void setAddProjectPickerListener(ActionListener listener) {
+	public void setProjectPickerListener(ActionListener listener) {
 		projectPicker.addActionListener(listener);
 	}
 	
-	void setAddProjectButtonListener(ActionListener listener) {
+	public void setAddProjectButtonListener(ActionListener listener) {
 		addProjectButton.addActionListener(listener);
 	}
 	
-	void setDateBackButtonListener(ActionListener listener) {
+	public void setRenameProjectButtonListener(ActionListener listener) {
+		renameProjectButton.addActionListener(listener);
+	}
+	
+	public void setDateBackButtonListener(ActionListener listener) {
 		dateBackButton.addActionListener(listener);
 	}
 	
-	void setDatePickerListener(ActionListener listener) {
+	public void setDatePickerListener(ActionListener listener) {
 		datePicker.addActionListener(listener);
 	}
 	
-	void setDateForwardButtonListener(ActionListener listener) {
+	public void setDateForwardButtonListener(ActionListener listener) {
 		dateForwardButton.addActionListener(listener);
 	}
 	
-	void setEditorListener(KeyListener listener) {
+	public void setEditorListener(KeyListener listener) {
 		editor.addKeyListener(listener);
+	}
+
+	public void disableEditor(boolean b) {
+		editor.setEditable(b);
 	}
 }

@@ -20,7 +20,25 @@ public class LabNotesModel {
 		projects = new ArrayList<Project>();
 	}
 	
-	@SuppressWarnings("unchecked") // TODO
+	public boolean addProject(String name) {
+		if (projects.contains(name)) {
+			return false;
+		} else {
+			projects.add(new Project(name));
+			return true;
+		}
+	}
+	
+	public ArrayList<String> getProjectNames() {
+		ArrayList<String> names = new ArrayList<String>();
+		for (Project p : projects) {
+			names.add(p.getName());
+		}
+		return names;
+	}
+	
+	
+	@SuppressWarnings("unchecked") 
 	boolean load() {
 		if (new File(fileName).exists()) {
 			ObjectInputStream ois;
@@ -63,7 +81,8 @@ public class LabNotesModel {
 		String name;
 		ArrayList<Entry> entries;
 		
-		public Project() {
+		public Project(String name) {
+			this.name = name;
 			entries = new ArrayList<Entry>();
 		}
 		
@@ -75,7 +94,7 @@ public class LabNotesModel {
 			return entries;
 		}
 		
-		Entry getEntry(Date date) {
+		public Entry getEntry(Date date) {
 			for (Entry e : entries) {
 				if (e.getDate() == date) {
 					return e;
@@ -88,6 +107,10 @@ public class LabNotesModel {
 			Entry e = new Entry(date);
 			entries.add(e);
 			return e;
+		}
+
+		public String getName() {
+			return name;
 		}
 	}
 	
@@ -106,5 +129,34 @@ public class LabNotesModel {
 		void setText(String text) {
 			this.text = text;
 		}
+		
+		public String getText() {
+			return text;
+		}
+		
+	}
+
+	public boolean renameProject(String selectedProject, String newName) {
+
+		// don't allow projects with the same name
+		for (Project p : projects) {
+			if (p.getName().equals(newName)) return false;
+		}
+		
+		// rename
+		for (Project p : projects) {
+			if (p.getName().equals(selectedProject)) {
+				p.renameTo(newName);
+			}
+		}
+		
+		return true;
+	}
+
+	public Project getProject(String projectName) {
+		for (Project p : projects) {
+			if (p.getName().equals(projectName)) return p;
+		}
+		return null;
 	}
 }

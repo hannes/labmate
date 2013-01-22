@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.text.rtf.RTFEditorKit;
+import javax.swing.text.html.HTMLEditorKit;
 
 import labmate.model.LabNotesModel;
 
@@ -80,7 +80,7 @@ public class LabNotesView extends JFrame {
 		toolbar.add(dateForwardButton);
 		container.add(toolbar, BorderLayout.NORTH);
 		
-		editor.setEditorKit(new RTFEditorKit());
+		editor.setEditorKit(new HTMLEditorKit());
 		editor.setMargin(new Insets(5, 5, 5, 5));
 		JScrollPane scrollPane = new JScrollPane(editor);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -131,6 +131,23 @@ public class LabNotesView extends JFrame {
 	
 	String getEditorText() {
 		return editor.getText();
+	}
+	
+	
+	//--------------------------------------------------------------------------
+	// setter view elements used by controller
+	//--------------------------------------------------------------------------
+	
+	void setSelectedProject(String project) {
+		projectPicker.setSelectedItem(project);
+	}
+	
+	void setSelectedDate(Date date) {
+		datePicker.setDate(date);
+	}
+	
+	void setEditorText(String text) {
+		editor.setText(text);
 	}
 	
 	
